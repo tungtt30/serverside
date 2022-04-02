@@ -1,0 +1,464 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='apple-touch-icon' sizes='180x180' href='./assets/favicon/apple-touch-icon.png')
+  link(rel='icon' type='image/png' sizes='32x32' href='./assets/favicon/favicon-32x32.png')
+  link(rel='icon' type='image/png' sizes='16x16' href='./assets/favicon/favicon-16x16.png')
+  link(rel='manifest' href='./assets/favicon/site.webmanifest')
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css')
+  link(rel='stylesheet' href='./assets/style.css')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js')
+  style.
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -moz-user-select: none !important;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    -khtml-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    }
+    .body {
+    margin-top: 50px;
+    justify-content: center;
+    color: rgb(57, 4, 107);
+    }
+    .game_container {
+    width: 500px;
+    margin-right: 50px;
+    }
+    .d-flex {
+    display: flex;
+    }
+    .justi-ar {
+    justify-content: space-around;
+    }
+    .collection-item {
+    width: 71px;
+    overflow: hidden;
+    white-space: nowrap;
+    }
+    .input_score {
+    text-align: center;
+    }
+    /* custom btn */
+    .waves-effect .waves-brown .waves-ripple {
+    background-color: rgba(255, 255, 255, 0.8);
+    }
+    td {
+    width: 90px;
+    text-align: center;
+    padding: 0;
+    }
+    .btn_add {
+    background-color: rgb(255, 255, 255);
+    color: rgb(64, 7, 97);
+    border: 1px solid;
+    border-color: rgb(115, 22, 202);
+    margin: 10px;
+    border-radius: 4px;
+    }
+    .bg {
+    position: relative;
+    top: 62px;
+    left: 15px;
+    width: 80px;
+    height: 50px;
+    border-radius: 6px;
+    display: block;
+    animation: pulses 1.2s ease infinite;
+    background: rgba(115, 22, 202, 0.658);
+    box-shadow: 1 1 1 1 rgba(#64208b, 1);
+    }
+    @keyframes pulses {
+    0% {
+    transform: scale(1, 1);
+    }
+    50% {
+    opacity: 0.2;
+    }
+    100% {
+    transform: scale(1.4);
+    opacity: 0;
+    }
+    }
+    .btn_add:hover {
+    background-color: rgb(124, 97, 156);
+    color: #ffffff;
+    }
+    .btn_clr {
+    background-color: rgb(247, 247, 247);
+    color: rgb(255, 0, 0);
+    border: 1px solid;
+    border-color: rgb(255, 33, 33);
+    margin: 10px;
+    border-radius: 4px;
+    }
+    .btn_clr:hover {
+    background-color: rgb(250, 181, 181);
+    color: #ffffff;
+    }
+    .btn_audio {
+    background-color: rgb(247, 247, 247);
+    color: rgb(0, 26, 255);
+    border: 1px solid;
+    border-color: rgb(38, 0, 255);
+    margin: 10px;
+    border-radius: 4px;
+    }
+    .btn_audio:hover {
+    background-color: rgb(8, 8, 170);
+    color: #ffffff;
+    }
+    .sp_bw {
+    justify-content: space-between;
+    }
+    .name_p1 {
+    color: red;
+    }
+    .name_p2 {
+    color: green;
+    }
+    .name_p3 {
+    color: violet;
+    }
+    .name_p4 {
+    color: orange;
+    }
+    .name_p5 {
+    color: blue;
+    }
+    .chart_container {
+    width: 450px;
+    }
+    .add_responsive {
+    background-color: rgb(255, 255, 255);
+    color: rgb(64, 7, 97);
+    border: 1px solid;
+    border-color: rgb(115, 22, 202);
+    margin: 10px;
+    border-radius: 4px;
+    display: none;
+    }
+    .clear_responsive {
+    background-color: rgb(247, 247, 247);
+    color: rgb(255, 0, 0);
+    border: 1px solid;
+    border-color: rgb(255, 33, 33);
+    margin: 10px;
+    border-radius: 4px;
+    display: none;
+    }
+    @media only screen and (max-width: 415px) {
+    .add_responsive {
+    display: block;
+    }
+    .chart_container {
+    display: none;
+    }
+    .clear_responsive {
+    display: block;
+    }
+    .body {
+    position: relative;
+    left: 20px;
+    justify-content: center;
+    }
+    }
+    .footer {
+    margin: 200px auto 20px auto;
+    text-align: center;
+    }
+    /* custom scroll bar */
+    ::-webkit-scrollbar {
+    width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+    background: #c4a5ff;
+    }
+    ::-webkit-scrollbar-thumb {
+    background: rgb(62, 41, 85);
+    border-radius: 5px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+    background: rgb(39, 0, 82);
+    }
+  title S&acirc;m l&#x1ED1;c
+.body.d-flex
+  .game_container
+    .init.row
+      .input-field.col.s6.init_name
+        input#ip_name.input_name(type='text' placeholder='Name ?')
+      .input-field.col.s6
+        select.slit
+          option(value='' disabled='' selected='') Pick slot
+          option(value='1') Slot 1
+          option(value='2') Slot 2
+          option(value='3') Slot 3
+          option(value='4') Slot 4
+          option(value='5') Slot 5
+        label Slot
+    .p_name
+      ul.collection.d-flex.sp_bw
+        li.collection-item.name_p1.name_p Name
+        li.collection-item.name_p2.name_p Name
+        li.collection-item.name_p3.name_p Name
+        li.collection-item.name_p4.name_p Name
+        li.collection-item.name_p5.name_p Name
+    .p_score
+      ul.collection.d-flex.sp_bw
+        li.collection-item.total.score_p1 0
+        li.collection-item.total.score_p2 0
+        li.collection-item.total.score_p3 0
+        li.collection-item.total.score_p4 0
+        li.collection-item.total.score_p5 0
+    .d-flex.justi-ar
+      input.input_score.input_p1(list='browsers' type='number' placeholder='Click')
+      input.input_score.input_p2(list='browsers' type='number' placeholder='ở đây')
+      input.input_score.input_p3(list='browsers' type='number' placeholder='để')
+      input.input_score.input_p4(list='browsers' type='number' placeholder='nhập')
+      input.input_score.input_p5(list='browsers' type='number' placeholder='điểm')
+      datalist#browsers
+        option(value='-1')
+        option(value='-2')
+        option(value='-3')
+        option(value='-4')
+        option(value='-5')
+        option(value='-6')
+        option(value='-7')
+        option(value='-8')
+        option(value='-9')
+        option(value='-10')
+        option(value='-15')
+        option(value='-20')
+    .score_table
+      table.striped.highlight.centered
+        tbody.tbody
+      a.btn.add_responsive.waves-effect.waves-purple.btn-large ADD
+      a.btn.clear_responsive.waves-effect.waves-red.btn-large Clear
+  .chart_container
+    canvas#myChart(style='width: 100%; max-width: 900px')
+    .bg
+    a.btn.btn_add.waves-effect.waves-purple.btn-large ADD
+    a.btn.btn_clr.waves-effect.waves-red.btn-large Clear
+    a.btn.btn_audio.waves-effect.waves-red.btn-small :v
+    audio.audio(src='../assets/audio.mp3')
+    blockquote
+      | &Dstrok;i&#x1EC1;u may m&#x1EAF;n kh&ocirc;ng ph&#x1EA3;i l&agrave; n&#x1EAF;m gi&#x1EEF; nh&#x1EEF;ng l&aacute; b&agrave;i t&#x1ED1;t nh&#x1EA5;t trong tay,
+      | may m&#x1EAF;n nh&#x1EA5;t l&agrave; ta bi&#x1EBF;t khi n&agrave;o n&ecirc;n &dstrok;&#x1EE9;ng l&ecirc;n v&agrave; v&#x1EC1; nh&agrave;.
+footer.footer
+  small &copy; Copyright 2022, GodSeeker Corporation
+script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js')
+script.
+  //init selections
+  document.addEventListener("DOMContentLoaded", function () {
+  var elems = document.querySelectorAll("select");
+  var instances = M.FormSelect.init(elems, "slot_input");
+  });
+  const name_p = document.querySelectorAll(".name_p");
+  const input_name = document.querySelector(".input_name");
+  const input_score = document.querySelectorAll(".input_score");
+  const btn_add = document.querySelector(".btn_add");
+  const total = document.querySelectorAll(".total");
+  const tbody = document.querySelector(".tbody");
+  const btn_clr = document.querySelector(".btn_clr");
+  const btn_audio = document.querySelector(".btn_audio");
+  const audio = document.querySelector(".audio");
+  const res_add = document.querySelector(".add_responsive");
+  const res_clr = document.querySelector(".clear_responsive");
+  let isPlaying = false;
+  btn_audio.addEventListener("click", () => {
+  if (isPlaying) {
+  audio.pause();
+  isPlaying = false;
+  return 0;
+  } else {
+  audio.play();
+  isPlaying = true;
+  return 1;
+  }
+  });
+  audio.addEventListener("ended", () => {
+  isPlaying = false;
+  });
+  let namearr = ["s1", "s2", "s3", "s4", "s5"];
+  let s = null;
+  let dataupdate = [0, 0, 0, 0, 0];
+  const slot = document.querySelector(".slit");
+  slot.addEventListener("change", (e) => {
+  s = e.target.value - 1;
+  input_name.value = "";
+  });
+  input_name.addEventListener("input", () => {
+  if (s == null) {
+  alert("pick slot ??");
+  input_name.value = "";
+  }
+  name_p[s].innerHTML = input_name.value;
+  namearr[s] = input_name.value;
+  chart.update();
+  });
+  let p1 = [];
+  let p2 = [];
+  let p3 = [];
+  let p4 = [];
+  let p5 = [];
+  const tr = [];
+  const clearinput = () => {
+  for (let i = 0; i < input_score.length; i++) {
+  input_score[i].value = null;
+  }
+  };
+  const push = () => {
+  let p1score = Number(input_score[0].value);
+  let p2score = Number(input_score[1].value);
+  let p3score = Number(input_score[2].value);
+  let p4score = Number(input_score[3].value);
+  let p5score = Number(input_score[4].value);
+  const pushe = () => {
+  p1.push(p1score);
+  p2.push(p2score);
+  p3.push(p3score);
+  p4.push(p4score);
+  p5.push(p5score);
+  tr.push(` <tr>
+  <td>${p1score}</td>
+  <td>${p2score}</td>
+  <td>${p3score}</td>
+  <td>${p4score}</td>
+  <td>${p5score}</td>
+  </tr>
+  `);
+  };
+  switch (!0) {
+  case p1score !== 0 &&
+  p2score !== 0 &&
+  p3score !== 0 &&
+  p4score !== 0 &&
+  p5score !== 0:
+  alert("Nhập ngu");
+  break;
+  case p2score !== 0 && p3score !== 0 && p4score !== 0 && p5score !== 0:
+  p1score = -(p2score + p3score + p4score + p5score);
+  pushe();
+  totem();
+  break;
+  case p1score !== 0 && p3score !== 0 && p4score !== 0 && p5score !== 0:
+  p2score = -(p1score + p3score + p4score + p5score);
+  pushe();
+  totem();
+  break;
+  case p2score !== 0 && p1score !== 0 && p4score !== 0 && p5score !== 0:
+  p3score = -(p2score + p1score + p4score + p5score);
+  pushe();
+  totem();
+  break;
+  case p2score !== 0 && p3score !== 0 && p1score !== 0 && p5score !== 0:
+  p4score = -(p2score + p3score + p1score + p5score);
+  pushe();
+  totem();
+  break;
+  case p2score !== 0 && p3score !== 0 && p4score !== 0 && p1score !== 0:
+  p5score = -(p2score + p3score + p4score + p1score);
+  pushe();
+  totem();
+  break;
+  default:
+  alert("Nhập ngu");
+  }
+  };
+  const totem = () => {
+  let a1 = p1.reduce((a, b) => a + b);
+  total[0].innerText = a1;
+  let a2 = p2.reduce((a, b) => a + b);
+  total[1].innerText = a2;
+  let a3 = p3.reduce((a, b) => a + b);
+  total[2].innerText = a3;
+  let a4 = p4.reduce((a, b) => a + b);
+  total[3].innerText = a4;
+  let a5 = p5.reduce((a, b) => a + b);
+  total[4].innerText = a5;
+  dataupdate = [a1, a2, a3, a4, a5];
+  };
+  const key = "key";
+  let dock = {
+  p1: p1,
+  p2: p2,
+  p3: p3,
+  p4: p4,
+  p5: p5,
+  };
+  const stored = () => {
+  window.localStorage.setItem(key, JSON.stringify(dock));
+  };
+  const getStore = () => {
+  var data = window.localStorage.getItem(key);
+  var item = JSON.parse(data);
+  p1 = item.p1;
+  p2 = item.p2;
+  p3 = item.p3;
+  p4 = item.p4;
+  p5 = item.p5;
+  };
+  const data = {
+  labels: namearr,
+  datasets: [
+  {
+  data: [0, 0, 0, 0, 0],
+  backgroundColor: [
+  "rgba(255, 99, 132, 0.2)",
+  "rgba(75, 192, 192, 0.2)",
+  "rgba(153, 102, 255, 0.2)",
+  "rgba(255, 159, 64, 0.2)",
+  "rgba(54, 162, 235, 0.2)",
+  ],
+  borderColor: ["red", "green", "violet", "orange", "blue"],
+  borderWidth: 1,
+  },
+  ],
+  };
+  const chart = new Chart("myChart", {
+  type: "bar",
+  data: data,
+  options: {
+  legend: { display: false },
+  },
+  });
+  const render = () => {
+  let ehe = tr.map((e) => e);
+  tbody.innerHTML = ehe.join("");
+  };
+  render();
+  btn_clr.addEventListener("click", () => {
+  if (confirm("mất hết dữ liệu đấy !!") == true) {
+  window.location.reload(true);
+  }
+  return;
+  });
+  btn_add.addEventListener("click", () => {
+  push();
+  data.datasets[0].data = dataupdate;
+  chart.update();
+  clearinput();
+  render();
+  });
+  res_add.addEventListener("click", () => {
+  push();
+  clearinput();
+  render();
+  });
+  res_clr.addEventListener("click", () => {
+  if (confirm("mất hết dữ liệu đấy !!") == true) {
+  window.location.reload(true);
+  }
+  return;
+  });
+script(type='text/javascript').
+  window.onbeforeunload = function () {
+  return "Dude, are you sure you want to leave? Think of the kittens!";
+  };
